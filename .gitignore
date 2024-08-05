@@ -1,0 +1,12 @@
+certs/
+minio1/
+minio2/
+minio3/
+minio4/
+miniosolo/
+certsgen/ca-cert.pem
+certsgen/ca-key.pem
+certsgen/server-cert.pem
+certsgen/server-key.pem
+certsgen/server-req.pem
+

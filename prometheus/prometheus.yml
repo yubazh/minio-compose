@@ -1,0 +1,23 @@
+global:
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  evaluation_interval: 15s
+scrape_configs:
+- job_name: minio-job-server
+  bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwic3ViIjoibWluaW9hZG1pbiIsImV4cCI6NDg3NjIzNTY5MX0.dejEa5TN1H2VrLx0vVCXuzdAa-GQup96VCo8cMo2tX6FK4fktcCew7YHaIVxDMpaLWo5HWYs0KBA_E8NT9C4IA
+  metrics_path: /minio/v2/metrics/cluster
+  scheme: https
+  tls_config:
+    ca_file: /certs/ca.crt
+    #insecure_skip_verify: true
+  static_configs:
+  - targets: [minio.local]
+- job_name: minio-job-bucket
+  bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwcm9tZXRoZXVzIiwic3ViIjoibWluaW9hZG1pbiIsImV4cCI6NDg3NjIzNTY5MX0.dejEa5TN1H2VrLx0vVCXuzdAa-GQup96VCo8cMo2tX6FK4fktcCew7YHaIVxDMpaLWo5HWYs0KBA_E8NT9C4IA
+  metrics_path: /minio/v2/metrics/bucket
+  scheme: https
+  tls_config:
+    ca_file: /certs/ca.crt
+    #insecure_skip_verify: true
+  static_configs:
+  - targets: [minio.local] 

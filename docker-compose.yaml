@@ -1,0 +1,106 @@
+version: '3.7'
+
+services:
+  # first cluster
+  minio1:
+    restart: always
+    image: bitnami/minio:2024.7.26
+    container_name: minio1
+    hostname: minio1.local
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=MBVfbuu2NDS3Aw
+      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
+      - MINIO_DISTRIBUTED_NODES=minio1.local,minio2.local,minio3.local,minio4.local
+      - MINIO_SKIP_CLIENT=yes
+      - MINIO_SCHEME=https
+      - MINIO_CONSOLE_PORT_NUMBER=9001
+      - MINIO_SERVER_URL=https://minio.local
+      - MINIO_BROWSER_REDIRECT_URL=https://minio.local/minio/ui
+    volumes:
+      - ./minio1:/bitnami/minio/data
+      - ./certs:/certs
+    healthcheck:
+      test: [ "CMD", "curl", "-k", "https://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+  minio2:
+    restart: always
+    image: bitnami/minio:2024.7.26
+    container_name: minio2
+    hostname: minio2.local
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=MBVfbuu2NDS3Aw
+      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
+      - MINIO_DISTRIBUTED_NODES=minio1.local,minio2.local,minio3.local,minio4.local
+      - MINIO_SKIP_CLIENT=yes
+      - MINIO_SCHEME=https
+      - MINIO_CONSOLE_PORT_NUMBER=9001
+      - MINIO_SERVER_URL=https://minio.local
+      - MINIO_BROWSER_REDIRECT_URL=https://minio.local/minio/ui
+    volumes:
+      - ./minio2:/bitnami/minio/data
+      - ./certs:/certs
+    healthcheck:
+      test: [ "CMD", "curl", "-k", "https://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+  minio3:
+    restart: always
+    image: bitnami/minio:2024.7.26
+    container_name: minio3
+    hostname: minio3.local
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=MBVfbuu2NDS3Aw
+      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
+      - MINIO_DISTRIBUTED_NODES=minio1.local,minio2.local,minio3.local,minio4.local
+      - MINIO_SKIP_CLIENT=yes
+      - MINIO_SCHEME=https
+      - MINIO_CONSOLE_PORT_NUMBER=9001
+      - MINIO_SERVER_URL=https://minio.local
+      - MINIO_BROWSER_REDIRECT_URL=https://minio.local/minio/ui
+    volumes:
+      - ./minio3:/bitnami/minio/data
+      - ./certs:/certs
+    healthcheck:
+      test: [ "CMD", "curl", "-k", "https://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+  minio4:
+    restart: always
+    image: bitnami/minio:2024.7.26
+    container_name: minio4
+    hostname: minio4.local
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=MBVfbuu2NDS3Aw
+      - MINIO_DISTRIBUTED_MODE_ENABLED=yes
+      - MINIO_DISTRIBUTED_NODES=minio1.local,minio2.local,minio3.local,minio4.local
+      - MINIO_SKIP_CLIENT=yes
+      - MINIO_SCHEME=https
+      - MINIO_CONSOLE_PORT_NUMBER=9001
+      - MINIO_SERVER_URL=https://minio.local
+      - MINIO_BROWSER_REDIRECT_URL=https://minio.local/minio/ui
+    volumes:
+      - ./minio4:/bitnami/minio/data
+      - ./certs:/certs
+    healthcheck:
+      test: [ "CMD", "curl", "-k", "https://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+  minio:
+    image: nginx:1.19.2-alpine
+    container_name: minio
+    hostname: minio.local
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/certs
+    ports:
+      - "443:443"
+
