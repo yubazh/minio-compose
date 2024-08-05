@@ -1,0 +1,1 @@
+# minio-compose
